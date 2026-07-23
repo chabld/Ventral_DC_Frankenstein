@@ -17,11 +17,11 @@ The remaining empty space is most likely white matter fibers extending from the 
 
 **Substantia Nigra (pars compacta and reticulata), Red Nucleus, Parabrachial Pigmented, Ventral Tegmental Area, Hypothalamus, Subthalamic Nucleus**, from the CIT68 Reinforcement Learning Atlas (Pauli et al. 2018; OSF data: https://doi.org/10.17605/OSF.IO/R2HVK), using the MNI 152 space ("CIT168_Reinf_Learn_v1.1.0/MNI152-Nonlin-Asym-2009c/CIT168toMNI152-2009c_det.nii").
 
-Note: The atlas was split to distinguish left and right ROIs (see repository script code/CIT168_splitter.py). The Mammillary nucleus was dropped as identified to be mostly out of the ventral DC. MGN kept as documented to be part of ventral DC, even though the match with the Brainstem Navigator atlas is questionable (partial overlap).
+Note: The atlas was split to distinguish left and right ROIs (see repository script code/CIT168_splitter.py). The Mammillary nucleus was dropped as identified to be mostly out of the ventral DC. 
 
 **Medial and lateral geniculate nuclei** (MGN, LGN): Brainstem Navigator v1.0 (Singh et al. 2021; García-Gomar et al. 2019), which include a probablistic atlas ("2b.DiencephalicNucleiAtlas_MNI", https://www.nitrc.org/projects/brainstemnavig/)
 
-Note: The probability threshold was set to minimal to maximize the mask sizes, as opposed to 0.35. This is justified by the Ventral DC's own rough delineation as opposed to the high resolution segmentation the Brainstem Navigator is based upon.
+Note: The probability threshold was set to minimal to maximize the mask sizes, as opposed to 0.35. This is justified by the Ventral DC's own rough delineation as opposed to the high resolution segmentation the Brainstem Navigator is based upon. MGN kept as documented to be part of ventral DC, even though the match with the Brainstem Navigator atlas is questionable (partial overlap).
 
 **Left and right cerebral peduncles** JHU DTI-based white-matter atlases's (Wakana et al. 2007; Hua et al. 2008; source data: https://identifiers.org/neurovault.image:1401)
 
