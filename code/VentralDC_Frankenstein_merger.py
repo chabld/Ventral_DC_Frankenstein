@@ -1,6 +1,7 @@
-#Code to extract and merge: Brainstem Navigator's geniculate nuclei with minimal probability threshold, same as was done for the FreeSurfer hippocampal/brainstem/thalamic segmentations, JHU DTI atlas's cerebral peduncles, and CIT168's nuclei (overlapping with ventral-DC)
+#Code to extract and merge: Brainstem Navigator's geniculate nuclei with minimal probability threshold, JHU DTI atlas's cerebral peduncles, and CIT168's nuclei (overlapping with ventral-DC); and finally resample them to MNI305
 #Mostly shamelessly Claude-generated (with several tweaks) 
 #It is intended to be run from a root directory that includes 3 subdirectories, i.e. "2b.diencephalicNucleiAtlas_MNI/" (including LG and MG volumes), "JHU/" (including the JHU atlas), and "CIT168/" including the CIT168toMNI152-2009c_det atlas (split using CIT168_splitter.py).
+#It also requires $FREESURFER_HOME/average/mni305.cor.mgz (ASeg's space) to be copied to the working directory (or simply change the path when it is loaded)
 
 import nibabel as nib
 import numpy as np
@@ -133,3 +134,54 @@ final_img = nib.Nifti1Image(final, targ_affine, targ_img.header)
 final_img.header.set_data_dtype(np.int16)
 nib.save(final_img, "VentralDC.MNI152.nii.gz")
 
+############################################################
+#MNI152 to MNI305 (ventral DC's space)
+
+# --- MNI152_to_MNI305 matrix, borrowed from neuroatlas R package (R/coordinate_spaces.R) ---
+# Reference: Buchsbaum B (2026). neuroatlas: Neuroimaging Atlases and Parcellations. R package version 0.1.0, https://github.com/bbuchsbaum/neuroatlas.
+
+# reconstructed correctly from R's column-major matrix() fill, verified against
+# the package's own docstring worked examples
+MNI305_to_MNI152 = np.array([
+    [ 0.9975, -0.0073,  0.0176, -0.0429],
+    [ 0.0146,  1.0009, -0.0024,  1.5496],
+    [-0.0130, -0.0093,  0.9971,  1.1840],
+    [ 0.0,     0.0,     0.0,     1.0   ],
+])
+MNI152_to_MNI305 = np.linalg.inv(MNI305_to_MNI152)
+
+# --- source: your merged volume, MNI152 space ---
+# `final` here is the label array you already built in the merge step
+src_data = final.astype(np.float64)
+src_affine = targ_affine  # <-- this is the JHU/combined grid's affine from your merge script
+
+# --- target grid: load mni305.cor.mgz DIRECTLY, no mri_convert step ---
+# CRITICAL: for this specific file, tkreg RAS == true MNI305 coordinates.
+# Using the scanner-RAS affine (what mri_convert to .nii.gz gives you) instead
+# of vox2ras_tkr is what caused the "completely off" result.
+mni305_mgh = nib.load("mni305.cor.mgz")  # $FREESURFER_HOME/average/mni305.cor.mgz
+mni305_affine = mni305_mgh.header.get_vox2ras_tkr()  # true MNI305 coords
+mni305_shape = mni305_mgh.shape
+
+# --- compose: target voxel -> target world (MNI305 RAS)
+#              -> apply matrix (MNI305 RAS -> MNI152 RAS)
+#              -> source world (MNI152 RAS) -> source voxel ---
+# affine_transform maps OUTPUT voxel coords to INPUT voxel coords, so:
+voxel_to_voxel = np.linalg.inv(src_affine) @ MNI305_to_MNI152 @ mni305_affine
+matrix = voxel_to_voxel[:3, :3]
+offset = voxel_to_voxel[:3, 3]
+
+resampled = affine_transform(
+    src_data,
+    matrix=matrix,
+    offset=offset,
+    output_shape=mni305_shape,
+    order=0,        # nearest-neighbor, mandatory for integer labels
+    mode='constant',
+    cval=0,
+)
+
+resampled = resampled.astype(np.int16)
+out_img = nib.Nifti1Image(resampled, mni305_affine)  # MGHHeader isn't valid for Nifti1Image
+out_img.header.set_data_dtype(np.int16)
+nib.save(out_img, "VentralDC.MNI305.nii.gz")

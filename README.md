@@ -7,7 +7,7 @@ The ventral DC is [documented](https://surfer.nmr.mgh.harvard.edu/fswiki/Subcort
 > "[...] "ventral diencephalon" region that subtends many of the smaller nuclei and structures in the area inferior to the thalamus, such as hypothalamus, red nuclei, later and medial geniculate, etc. [...] As defined by Makris in Makris, et al. Biol Psychiatry. 2008 Aug 1;64(3):192-202. (paper "...ventral diencephalon (49), which according to our morphometric definition contains the hypothalamus, basal forebrain, and sublenticular extended amygdala (SLEA), as well as a large portion of ventral tegmentum (which is included in our ventral diencephalon region by convention although part of midbrain)"
 
 
-Even though the aseg.mgz volume is in MNI305 and the atlases MNI152, the stitched up regions roughly match the underlying volume (overlapped using FreeSurfer's freeview):
+The stitched up regions roughly match the underlying volume (overlapped using FreeSurfer's freeview):
 
 ![](ventralDC_frankenstein_itsalive.png)
 
@@ -24,9 +24,10 @@ Note: The probability threshold was set to minimal to maximize the mask sizes, a
 **Left and right cerebral peduncles** JHU DTI-based white-matter atlases's (Wakana et al. 2007; Hua et al. 2008; source data: https://identifiers.org/neurovault.image:1401)
 
 # Code
-The script used to merge all the atlas' regions together is stored in "code/VentralDC_Frankenstein_merger.py". It is intended to be run from a root directory that includes 3 subdirectories, i.e. "2b.diencephalicNucleiAtlas_MNI/" (including LG and MG volumes), "JHU/" (including the JHU atlas), and "CIT168/" including the CIT168toMNI152-2009c_det atlas (split using CIT168_splitter.py).
+The script used to merge all the atlas' regions together is stored in "code/VentralDC_Frankenstein_merger.py". It is intended to be run from a root directory that includes 3 subdirectories, i.e. "2b.diencephalicNucleiAtlas_MNI/" (including LG and MG volumes), "JHU/" (including the JHU atlas), and "CIT168/" including the CIT168toMNI152-2009c_det atlas (split using CIT168_splitter.py). The script extract each label of interest separately, relabels them to get consistent IDs, combines them together into the same volume. It ouputs the volume in their initial MNI152 space but also a version resampled to MNI305 (ASeg's space) using the transformation matrix from Buchsbaum (2026).
 
 # References
+- Buchsbaum B (2026). neuroatlas: Neuroimaging Atlases and Parcellations. R package version 0.1.0, https://github.com/bbuchsbaum/neuroatlas.
 - Fischl, B. (2012). FreeSurfer. Neuroimage, 62(2), 774-781.
 - García-Gomar, M. G., Strong, C., Toschi, N., Singh, K., Rosen, B. R., Wald, L. L., & Bianciardi, M. (2019). In vivo probabilistic structural atlas of the inferior and superior colliculi, medial and lateral geniculate nuclei and superior olivary complex in humans based on 7 Tesla MRI. Frontiers in neuroscience, 13, 764.
 Pauli, W. M., Nili, A. N., & Tyszka, J. M. (2018). A high-resolution probabilistic in vivo atlas of human subcortical brain nuclei. Scientific data, 5(1), 180063.
