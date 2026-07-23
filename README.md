@@ -1,17 +1,17 @@
 # Ventral DC Frankenstein atlas
 
-This is a brute fusion of multiple atlases' regions stitched up together to fit in the "ventral diencephalon" (ventral DC), a region of interest included in FreeSurfer (Fischl, 2012)'s [automated subcortical segmentation](https://surfer.nmr.mgh.harvard.edu/fswiki/SubcorticalSegmentation) (ASeg), in MNI space. Its purpose is to help users interpet the ventral diencephalon's anatomy in more details given it encompasses multiple nuclei. It is NOT mean to be a precise subsegmentation but mostly a broad reference.
+This is a brute fusion of multiple atlases' regions stitched up together to fit in the "ventral diencephalon" (ventral DC), a region of interest included in FreeSurfer (Fischl, 2012)'s [automated subcortical segmentation](https://surfer.nmr.mgh.harvard.edu/fswiki/SubcorticalSegmentation) (ASeg), in MNI space. Its purpose is to help users interpet the ventral diencephalon's anatomy in more details given it encompasses multiple nuclei. It is NOT meant to be a precise subsegmentation but mostly a broad reference.
 
 The ventral DC is [documented](https://surfer.nmr.mgh.harvard.edu/fswiki/SubcorticalSegmentation) to include the following:
 
 > "[...] "ventral diencephalon" region that subtends many of the smaller nuclei and structures in the area inferior to the thalamus, such as hypothalamus, red nuclei, later and medial geniculate, etc. [...] As defined by Makris in Makris, et al. Biol Psychiatry. 2008 Aug 1;64(3):192-202. (paper "...ventral diencephalon (49), which according to our morphometric definition contains the hypothalamus, basal forebrain, and sublenticular extended amygdala (SLEA), as well as a large portion of ventral tegmentum (which is included in our ventral diencephalon region by convention although part of midbrain)"
 
 
-Even though the aseg.mgz volume is in MNI305 and the atlases MNI152 the stitched up regions roughly match the underlying volume (overlapped using FreeSurfer's freeview):
+Even though the aseg.mgz volume is in MNI305 and the atlases MNI152, the stitched up regions roughly match the underlying volume (overlapped using FreeSurfer's freeview):
 
 ![](ventralDC_frankenstein_itsalive.png)
 
-The remaining empty space is most likely white matter fibers extending from the brainstem.
+The remaining empty space is most likely white matter fibers extending from the brainstem. The cerebral peduncles tracts in particular, although defined slimmer in the JHU DTI, make up the anterior space of the ventral DC.
 
 # Atlas regions used to build it
 
