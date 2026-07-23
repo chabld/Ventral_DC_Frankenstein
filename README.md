@@ -15,7 +15,7 @@ The remaining empty space is most likely white matter fibers extending from the 
 
 # Atlas regions used to build it
 
-**Substantia Nigra, Red Nucleus, Parabrachial Pigmented, Ventral Tegmental Area,Hypothalamus,Subthalamic Nucleus**, from the CIT68 Reinforcement Learning Atlas (Pauli et al. 2018; OSF data: https://doi.org/10.17605/OSF.IO/R2HVK), using the MNI 152 space ("CIT168_Reinf_Learn_v1.1.0/MNI152-Nonlin-Asym-2009c/CIT168toMNI152-2009c_det.nii").
+**Substantia Nigra (pars compacta and reticulata), Red Nucleus, Parabrachial Pigmented, Ventral Tegmental Area, Hypothalamus, Subthalamic Nucleus**, from the CIT68 Reinforcement Learning Atlas (Pauli et al. 2018; OSF data: https://doi.org/10.17605/OSF.IO/R2HVK), using the MNI 152 space ("CIT168_Reinf_Learn_v1.1.0/MNI152-Nonlin-Asym-2009c/CIT168toMNI152-2009c_det.nii").
 
 Note: The atlas was split to distinguish left and right ROIs (see repository script code/CIT168_splitter.py). The Mammillary nucleus was dropped as identified to be mostly out of the ventral DC. MGN kept as documented to be part of ventral DC, even though the match with the Brainstem Navigator atlas is questionable (partial overlap).
 
