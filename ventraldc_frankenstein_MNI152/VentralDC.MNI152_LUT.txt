@@ -1,0 +1,22 @@
+#No. Label Name:                            R   G   B   A
+
+1   LG_l                                     165 77  202 0
+2   LG_r                                     24  37  48  0
+3   MG_l                                     187 29  109 0
+4   MG_r                                     19  44  222 0
+5   peduncle_R                               214 35  123 0
+6   peduncle_L                               46  217 30  0
+47  Substantia_Nigra_pars_compacta_L         63  114 31  0
+48  Red_Nucleus_L                            203 25  113 0
+49  Substantia_Nigra_pars_reticulata_L       23  68  148 0
+50  Parabrachial_Pigmented_L                 214 73  60  0
+51  Ventral_Tegmental_Area_L                 157 92  52  0
+54  Hypothalamus_L                           96  190 49  0
+56  Subthalamic_Nucleus_L                    32  30  105 0
+67  Substantia_Nigra_pars_compacta_R         254 218 160 0
+68  Red_Nucleus_R                            238 232 185 0
+69  Substantia_Nigra_pars_reticulata_R       153 127 92  0
+70  Parabrachial_Pigmented_R                 124 41  153 0
+71  Ventral_Tegmental_Area_R                 253 175 229 0
+74  Hypothalamus_R                           147 37  60  0
+76  Subthalamic_Nucleus_R                    214 84  175 0
