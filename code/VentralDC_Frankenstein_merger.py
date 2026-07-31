@@ -137,11 +137,10 @@ nib.save(final_img, "VentralDC.MNI152.nii.gz")
 ############################################################
 #MNI152 to MNI305 (ventral DC's space)
 
-# --- MNI152_to_MNI305 matrix, borrowed from neuroatlas R package (R/coordinate_spaces.R) ---
+#MNI152_to_MNI305 matrix, borrowed from neuroatlas R package (R/coordinate_spaces.R)
 # Reference: Buchsbaum B (2026). neuroatlas: Neuroimaging Atlases and Parcellations. R package version 0.1.0, https://github.com/bbuchsbaum/neuroatlas.
 
-# reconstructed correctly from R's column-major matrix() fill, verified against
-# the package's own docstring worked examples
+#reconstructed R matrix
 MNI305_to_MNI152 = np.array([
     [ 0.9975, -0.0073,  0.0176, -0.0429],
     [ 0.0146,  1.0009, -0.0024,  1.5496],
@@ -150,17 +149,13 @@ MNI305_to_MNI152 = np.array([
 ])
 MNI152_to_MNI305 = np.linalg.inv(MNI305_to_MNI152)
 
-# --- source: your merged volume, MNI152 space ---
-# `final` here is the label array you already built in the merge step
+#source is the merged volume in MNI152 space
 src_data = final.astype(np.float64)
-src_affine = targ_affine  # <-- this is the JHU/combined grid's affine from your merge script
+src_affine = targ_affine  # JHU/combined grid's affine
 
-# --- target grid: load mni305.cor.mgz DIRECTLY, no mri_convert step ---
-# CRITICAL: for this specific file, tkreg RAS == true MNI305 coordinates.
-# Using the scanner-RAS affine (what mri_convert to .nii.gz gives you) instead
-# of vox2ras_tkr is what caused the "completely off" result.
-mni305_mgh = nib.load("mni305.cor.mgz")  # $FREESURFER_HOME/average/mni305.cor.mgz
-mni305_affine = mni305_mgh.header.get_vox2ras_tkr()  # true MNI305 coords
+# load mni305.cor.mgz directly
+mni305_mgh = nib.load("mni305.cor.mgz")  
+mni305_affine = mni305_mgh.header.get_vox2ras_tkr()  #true MNI305 coords
 mni305_shape = mni305_mgh.shape
 
 # --- compose: target voxel -> target world (MNI305 RAS)
